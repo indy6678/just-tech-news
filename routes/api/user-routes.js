@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { UniqueConstraintError } = require('sequelize/types');
+// const {  } = require('sequelize/types');
 const {User} = require('../../models');
 
 // GET /api/users
@@ -59,7 +59,7 @@ router.put('/:id', (req, res) => {
         }
     })
     .then(dbUserData => {
-        if(!DbUserData[0]) {
+        if(!dbUserData[0]) {
             res.status(404).json({message: 'No user found with this id'});
             return;
         }
