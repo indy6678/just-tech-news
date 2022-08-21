@@ -1,10 +1,11 @@
 const router = require('express').Router();
-// const {  } = require('sequelize/types');
 const {User} = require('../../models');
 
 // GET /api/users
+// Access our User model and run .findAll() method, selects all users from the user table and send it back to JSON
+// .findAll() = SELECT * FROM users
 router.get('/', (req, res) => {
-    // Access our User model and run .findAll() method)
+    
     User.findAll()
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
@@ -16,6 +17,7 @@ router.get('/', (req, res) => {
 // GET /api/users/1
 router.get('/:id', (req, res) => {
     User.findOne({
+        // same as SELECT * FROM users WHERE id = 1
         where: {
             id: req.params.id
         }
@@ -33,7 +35,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
-//POST /api/users
+//POST /api/users to create a user
 router.post('/', (req, res) => {
     // expects {username: 'Lernantino', email: 'lernantino@gmail.com', password: 'password1234'}
     User.create({
