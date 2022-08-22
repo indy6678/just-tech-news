@@ -6,7 +6,9 @@ const {User} = require('../../models');
 // .findAll() = SELECT * FROM users
 router.get('/', (req, res) => {
     
-    User.findAll()
+    User.findAll({
+        attributes: { exclude: ['password']}
+    })
     .then(dbUserData => res.json(dbUserData))
     .catch(err => {
         console.log(err);
@@ -18,6 +20,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     User.findOne({
         // same as SELECT * FROM users WHERE id = 1
+        attributes: {exclude: ['password']},
         where: {
             id: req.params.id
         }
@@ -50,7 +53,7 @@ router.post('/', (req, res) => {
     });
 });
 
-// PUT /api/users/1
+// PUT /api/users/1 used to update an existing user
 router.put('/:id', (req, res) => {
     // expects {username: 'Lernantino', email:: 'lernantino@gmail.com', password: 'password1234'}
 
