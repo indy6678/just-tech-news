@@ -1,16 +1,18 @@
-const { Model, DataTypes } = require('sequelize');
+const {Model, DataTypes} = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Vote extends Model {}
+class Comment extends Model {}
 
-Vote.init(
+
+// bulding the Comment table
+Comment.init(
     {
+        // columns will go here
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        // connect to user
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -19,7 +21,6 @@ Vote.init(
                 key: 'id'
             }
         },
-        // connect to post
         post_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -27,15 +28,21 @@ Vote.init(
                 model: 'post',
                 key: 'id'
             }
-        }
+        },
+        comment_text: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            validate: {
+                len: [1],
+            },
+        },        
     },
     {
         sequelize,
-        timestamps: false,
         freezeTableName: true,
         underscored: true,
-        modelName: 'vote'
+        modelName: 'comment'
     }
 );
 
-module.exports = Vote;
+module.exports = Comment;
