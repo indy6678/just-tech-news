@@ -1,6 +1,6 @@
-const express = require('express');
-const routes = require('./routes');
-const sequelize = require('./config/connection'); // import connection to Sequelize
+const express = require("express");
+const routes = require("./routes");
+const sequelize = require("./config/connection"); // import connection to Sequelize
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -13,7 +13,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 // turn on connection to db and server
+// force true declares that the database connection must sync with the model definitions and association,
+// dropping and recreating all database tables on startup
 sequelize.sync({ force: false }).then(() => {
-  // force true will drop and recreate all database tables on startup
   app.listen(PORT, () => console.log(`Now listening on port ${PORT}!`));
 });
